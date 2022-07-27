@@ -16,7 +16,7 @@ public class Jogador {
     @GeneratedValue
     private Integer id;
 
-    @Type(type = "org.hibernate.type.YesNoType")
+    @Type(type = "org.hibernate.type.YesNoType") // Y/N
     private Boolean titular;
 
     @NotEmpty

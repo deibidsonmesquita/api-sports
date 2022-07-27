@@ -16,6 +16,7 @@ public class Aposta {
     @GeneratedValue
     private Long id;
     private BigDecimal valor;
+    private BigDecimal retorno;
     private LocalDate data;
    // private Usuario user;
    // private Partida partida;

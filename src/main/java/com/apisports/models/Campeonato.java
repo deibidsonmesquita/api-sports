@@ -6,6 +6,7 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Data
 @Entity
@@ -23,6 +24,10 @@ public class Campeonato {
 
     @NotNull
     private int rodadas;
+
+    @OneToMany(orphanRemoval = true)
+    @JoinColumn(name = "campeonato_id")
+    private List<Partida> partidas;
 
     @Enumerated(EnumType.STRING)
     private CampeonatoStatus status;
