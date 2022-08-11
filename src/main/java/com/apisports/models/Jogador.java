@@ -1,6 +1,7 @@
 package com.apisports.models;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Entity;
@@ -8,10 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 
 @Data
 @Entity
-public class Jogador {
+@NoArgsConstructor
+public class Jogador implements Serializable {
     @Id
     @GeneratedValue
     private Integer id;

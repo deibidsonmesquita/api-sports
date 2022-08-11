@@ -1,5 +1,6 @@
 package com.apisports.controllers;
 
+import com.apisports.Dtos.CampeonatoDTO;
 import com.apisports.models.Campeonato;
 import com.apisports.repository.CampeonatoRepositorio;
 import com.apisports.utils.NaoEncontradoExceptions;
@@ -13,13 +14,16 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/campeonato")
+@CrossOrigin(value = "*")
 public class CampeonatoController {
     @Autowired
     private CampeonatoRepositorio repositorio;
 
     @GetMapping("/all")
-    public ResponseEntity<List<Campeonato>> listaCampeonatos() {
-        return ResponseEntity.ok(repositorio.findAll());
+    public List<CampeonatoDTO> listaCampeonatos() {
+        var lista = repositorio.findAll();
+        List<CampeonatoDTO> campeonatos = lista.stream().map(CampeonatoDTO::new).toList();
+        return campeonatos;
     }
 
     @PostMapping("/registrar")
@@ -32,4 +36,6 @@ public class CampeonatoController {
         return ResponseEntity.ok(repositorio.findById(id)
                 .orElseThrow(() -> new NaoEncontradoExceptions("Campeonato não encontrado")));
     }
+
+
 }

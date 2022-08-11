@@ -1,15 +1,18 @@
 package com.apisports.models;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.List;
 
 @Data
+@NoArgsConstructor
 @Entity
-public class Clube {
+public class Clube implements Serializable {
     @Id
     @GeneratedValue
     private Integer id;
@@ -20,7 +23,7 @@ public class Clube {
     @NotNull
     @NotEmpty(message = "Infome a imagem logo do clube")
     private String imagem;
-    private String local;
+    private String estado;
     private String fundacao;
     private String estadio;
 

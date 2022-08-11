@@ -1,17 +1,22 @@
 package com.apisports.models;
 
+import com.apisports.utils.SerializeDateFormate;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@Entity
+
 @Data
-public class Partida {
+@Entity
+@NoArgsConstructor
+public class Partida implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
@@ -19,11 +24,22 @@ public class Partida {
     @Type(type = "org.hibernate.type.YesNoType") // Y/N
     private Boolean aovivo;
 
-    @OneToOne(mappedBy = "partida", orphanRemoval = true)
+    @OneToOne(mappedBy = "partida", orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonManagedReference
     private Cotacao cotacao;
-    private String mandante;
-    private String visitante;
+
+    @OneToOne
+    private Clube visitante;
+
+    @JsonSerialize(using = SerializeDateFormate.class)
     private LocalDateTime dataHora;
+
     private String local;
 
+    @OneToOne
+    private Clube mandante;
+
+    @ManyToOne
+    @JsonIgnore
+    private Campeonato campeonato;
 }
